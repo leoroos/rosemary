@@ -33,6 +33,8 @@ module Rosemary
     end
 
     def to_xml(options = {})
+      raise "implement to_xml for all children"
+      # TODO
       xml = options[:builder] ||= Builder::XmlMarkup.new
       xml.instruct! unless options[:skip_instruct]
       xml.osm(:generator => "rosemary v#{Rosemary::VERSION}", :version => Rosemary::Api::API_VERSION) do
@@ -41,18 +43,6 @@ module Rosemary
         end
       end
     end
-
-    def <=>(another_node)
-      raise 'not implemented'
-      parent_compare = super(another_node)
-      # don't bother to compare more stuff if parent comparison failed
-      return parent_compare unless parent_compare == 0
-
-      return -1 if self.send(:tags) != another_node.send(:tags)
-
-      0
-    end
-
 
   end
 end
