@@ -63,7 +63,6 @@ describe BoundingBox do
   end
 
   describe '#find:' do
-
     it "should find an array of Ways, Nodes and Relations from the API response via find_boundary" do
       stub_request(:get, "http://www.openstreetmap.org/api/0.6/map?bbox=-122.035988,37.38554,-122.00948,37.411677").to_return(:status => 200, :body => valid_fake_boundary, :headers => {'Content-Type' => 'application/xml'})
       boundary = osm.find_bounding_box(-122.035988,37.38554,-122.00948,37.411677)
@@ -74,6 +73,11 @@ describe BoundingBox do
       parsed_relation = boundary.relations.first
       expect(parsed_relation.members.length).to equal(2)
       expect(parsed_relation.tags.length).to equal(2)
+
+      expect(boundary.minlat).to be_within(0.00001).of(37.3855400)
+      expect(boundary.minlon).to be_within(0.00001).of(-122.0359880)
+      expect(boundary.maxlat).to be_within(0.00001).of(37.4116770)
+      expect(boundary.maxlon).to be_within(0.00001).of(-122.0094800)
     end
   end
 

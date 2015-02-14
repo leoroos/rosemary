@@ -12,10 +12,10 @@ module Rosemary
     # If +id+ is +nil+ a new unique negative ID will be allocated.
     def initialize(attrs = {})
       attrs = attrs.dup.stringify_keys!
-      @minlat = attrs['minlat'].to_f rescue nil
-      @minlon = attrs['minlon'].to_f rescue nil
-      @maxlat = attrs['maxlat'].to_f rescue nil
-      @maxlat = attrs['maxlon'].to_f rescue nil
+      @minlat = attrs['minlat'].to_f
+      @minlon = attrs['minlon'].to_f
+      @maxlat = attrs['maxlat'].to_f
+      @maxlon = attrs['maxlon'].to_f
 
       @nodes = []
       @ways = []
@@ -27,7 +27,7 @@ module Rosemary
       'BoundingBoxBox'
     end
 
-    # List of attributes for a Node
+    # List of attributes for a bounds element
     def attribute_list
       [:minlat, :minlon, :maxlat, :maxlon]
     end
